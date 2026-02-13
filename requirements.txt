@@ -1,0 +1,17 @@
+# Core
+numpy>=1.24,<2
+scipy>=1.10
+torch>=2.0
+xarray>=2023.1
+dask[array]>=2023.1
+
+# SEG-Y I/O
+segyio>=1.9
+segysak>=0.5
+
+# Optional: Kirchhoff migration operator (linear algebra form)
+# pylops>=2.0
+
+# Training / utils
+tqdm>=4.65
+pyyaml>=6.0
