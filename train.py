@@ -129,7 +129,16 @@ def main():
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
     loss_fn = nn.MSELoss()
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # Device configuration: Check for M3 Pro GPU (mps), then CUDA, then CPU
+    if torch.backends.mps.is_available():
+        device = torch.device("mps")
+        print("Using M3 Pro GPU (MPS) for training!")
+    elif torch.cuda.is_available():
+        device = torch.device("cuda")
+        print("Using NVIDIA GPU (CUDA) for training!")
+    else:
+        device = torch.device("cpu")
+        print("Using CPU for training.")
     model.to(device)
 
     for epoch in range(args.epochs):
