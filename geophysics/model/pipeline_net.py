@@ -26,11 +26,13 @@ class GeophysicsPipelineNet(nn.Module):
         config: Optional[ProcessingConfig] = None,
         base_channels: int = 32,
         encoder_layers: int = 4,
+        out_channels: int = 1,
         use_processing_branch: bool = True,
         blend_learned: bool = True,
     ):
         super().__init__()
         self.config = config or ProcessingConfig()
+        self.out_channels = out_channels
         self.use_processing_branch = use_processing_branch
         self.blend_learned = blend_learned
 
@@ -42,7 +44,7 @@ class GeophysicsPipelineNet(nn.Module):
         self.decoder = SectionDecoder(
             in_channels=self.encoder.out_channels,
             base_channels=base_channels,
-            out_channels=1,
+            out_channels=out_channels,
         )
         # Learnable blend: when processing branch is present, how much to use vs NN
         self.blend = nn.Parameter(torch.tensor(0.5))
