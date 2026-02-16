@@ -45,7 +45,7 @@ def write_segy_2d(
     with segyio.create(str(path), spec) as f:
         for i in range(ntr):
             f.trace[i] = data[i]
-        f.bin[segyio.su.dt] = dt_micros
+        f.bin[segyio.BinField.Interval] = dt_micros
     return None
 
 

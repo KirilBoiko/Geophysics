@@ -58,9 +58,9 @@ class MultiModalEncoder(nn.Module):
             nn.GELU(),
             nn.Linear(16, base_channels * 2 * 3),
         )
-        # Fuse: 3 * (base*2) -> base*4
+        # Fuse: 3 * (base*2) + (base*2*3) -> base*4
         self.fuse = nn.Sequential(
-            nn.Conv2d(base_channels * 2 * 3 + base_channels * 2, base_channels * 4, 3, padding=1),
+            nn.Conv2d(base_channels * 2 * 3 + base_channels * 2 * 3, base_channels * 4, 3, padding=1),
             nn.BatchNorm2d(base_channels * 4),
             nn.GELU(),
         )
